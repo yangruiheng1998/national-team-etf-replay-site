@@ -1,0 +1,26 @@
+[
+  {
+    "code": "510310",
+    "effective_date": "2024-09-20",
+    "factor_before": 0.49977589,
+    "type": "share_consolidation",
+    "note": "该日基金份额按0.49977589比例合并。历史份额乘该比例后才可与合并后的份额比较；这不是595.17亿份赎回。",
+    "source_url": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2024-09-23/510310_20240923_G18B.pdf"
+  },
+  {
+    "code": "510580",
+    "effective_date": "2024-08-30",
+    "factor_before": 0.24798687,
+    "type": "share_consolidation",
+    "note": "权益登记日收盘后按0.24798687合并；交易所当天份额已体现合并，不是31.87亿份赎回。",
+    "source_url": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2024-09-02/510580_20240902_8PI0.pdf"
+  },
+  {
+    "code": "159845",
+    "effective_date": "2023-02-28",
+    "factor_before": 0.747644145,
+    "type": "share_consolidation",
+    "note": "权益登记日日终按0.747644145折算；用于研究预热期变化率校正。",
+    "source_url": "https://pdf.dfcfw.com/pdf/H2_AN202302231583611420_1.pdf"
+  }
+]

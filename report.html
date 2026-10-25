@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股平准干预 · 模型评估报告</title>
+<link rel="stylesheet" href="assets/style.css?v=20260721-score1">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">MODEL ASSESSMENT</p>
+    <h1>多模型评估报告</h1>
+    <p class="subtitle">解释网页能做什么、模型如何得出结论，以及哪些事情公开数据无法证明。</p>
+    <p class="statusline" id="report-status">读取最新评估中…</p>
+  </div>
+</header>
+
+<main class="report-main">
+  <p class="report-nav"><a class="text-link" href="index.html">← 返回每日监测网页</a><a class="text-link" href="output/pdf/etf-monitor-assessment-guide.pdf" download>PDF版（数据截至7月20日）↓</a></p>
+
+  <section aria-labelledby="r-summary">
+    <h2 id="r-summary">一页结论</h2>
+    <div id="report-summary" class="assessment"><p class="empty">加载中…</p></div>
+  </section>
+
+  <section aria-labelledby="r-purpose">
+    <h2 id="r-purpose">网页和这份报告分别有什么用？</h2>
+    <div class="explain-grid">
+      <article class="explain-card">
+        <h3>每日网页：回答“今天发生了什么”</h3>
+        <p>每天自动更新ETF总份额、三大指数、事件标记、四模型投票和通用风险提示。适合快速巡检，重点看信号有没有连续、有没有共同收敛。</p>
+      </article>
+      <article class="explain-card">
+        <h3>评估报告：回答“为什么这样判断”</h3>
+        <p>解释口径、公式、证据强弱、误判场景和风险边界。适合在采取任何行动前复核，避免把一个漂亮百分比或一条新闻误当成确定答案。</p>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="r-scope">
+    <h2 id="r-scope">数据口径</h2>
+    <div class="report-prose">
+      <p>嘉实沪深300ETF（159919）是深交所上市基金。脚本读取深交所“基金规模”报表中的每日总份额字段；上交所ETF直接读取交易所ETF规模报表中的每日总份额（TOT_VOL），不再以基金成立日或规模/净值反推值作为主数据。</p>
+      <p><strong>最重要的限制：</strong>每日总份额是全市场所有持有人的合计，不是中央汇金逐日持仓。汇金持仓只在基金定期报告中离散披露，因此两次报告之间只能观察“市场总份额已低于历史持仓参考线”，不能准确指出汇金在哪一天、以什么价格、卖了多少。</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="r-score">
+    <h2 id="r-score">评分怎么计算？</h2>
+    <div class="table-scroll">
+      <table class="study-table model-table">
+        <tr><th>分数</th><th>组成</th><th>组合加分</th></tr>
+        <tr><td>市场风险</td><td>ETF连续3个更新间隔减少、至少两个指数跌破20日与60日均线、恐慌压力；各25分</td><td>三项同时满足再加25分</td></tr>
+        <tr><td>修复准备度</td><td>ETF连续3个更新间隔增加、至少两个指数站上两条均线、波动与回撤平稳；各25分</td><td>三项同时满足再加25分</td></tr>
+        <tr><td>数据可信度</td><td>最新ETF记录已核验40分、日期及时30分、持仓参考线在120天内30分</td><td>不加分；有缺项就直接扣分并提示</td></tr>
+      </table>
+    </div>
+    <p class="lead">风险分和修复分可以同时不低，因为市场可能一边有资金承接、一边仍处于弱趋势。网页不会用一个分数盖住另一个分数。</p>
+  </section>
+
+  <section aria-labelledby="r-models">
+    <h2 id="r-models">四个模型如何共同收敛？</h2>
+    <div class="table-scroll">
+      <table class="study-table model-table">
+        <tr><th>模型</th><th>每天看什么</th><th>偏暖</th><th>警惕</th><th>主要误区</th></tr>
+        <tr><td>ETF份额流向</td><td>8只ETF最新相邻记录的份额增减</td><td>至少5只增加且合计为正</td><td>至少5只减少且合计为负</td><td>不知道买卖方身份</td></tr>
+        <tr><td>三大指数趋势</td><td>收盘与20日、60日均线</td><td>至少2个指数同时在两条均线上</td><td>至少2个指数同时在两条均线下</td><td>趋势确认通常晚于最低点</td></tr>
+        <tr><td>恐慌压力</td><td>距120日高点回撤、20日波动</td><td>至少2个指数回撤浅且波动温和</td><td>至少2个指数回撤≥10%或年化波动≥30%</td><td>恐慌很深不等于立刻反弹</td></tr>
+        <tr><td>历史事件先验</td><td>A股类平准干预后的前瞻收益</td><td>20日历史上涨比例较高</td><td>不单独给警报</td><td>n=7，极易被一个样本改变</td></tr>
+      </table>
+    </div>
+    <p class="lead">判定不做加权黑箱：4个模型中至少3个同向，才显示“共同收敛”。2比2或2比1都写“证据不足”。历史模型只是背景，不替代实时趋势。</p>
+    <p class="lead">买入侧与卖出侧会分别统计三个实时条件。历史表只研究买入/政策干预，因为没有足够、经官方确认且能精确定位的国家队卖出样本；不会用推算日期制造“卖出胜率”。</p>
+  </section>
+
+  <section aria-labelledby="r-history">
+    <h2 id="r-history">历史胜率的正确读法</h2>
+    <div id="report-history" class="report-prose"><p class="empty">加载中…</p></div>
+    <p class="report-prose">“60日57.1%”是7次中4次上涨。60个交易日约3个月，所以它是当前样本里最弱的窗口；这不是已发现的稳定市场定律。20日的95%不确定范围约为48.7%–97.4%，宽到足以包含“接近抛硬币”和“明显偏高”两种世界。扩大样本前，不能拿85.7%当精确预测概率。</p>
+  </section>
+
+  <section aria-labelledby="r-rescue">
+    <h2 id="r-rescue">救市、抄底、政策底和恐慌底</h2>
+    <div class="report-prose">
+      <p><strong>救市 vs 抄底：</strong>救市描述目的——稳定流动性、信心与市场功能；抄底描述交易位置——在低价区域承接。暴跌中增持ETF可以同时具备两者特征。中央汇金在2023年、2024年和2025年的官方公告都强调增持ETF与维护资本市场平稳运行，因此从公开措辞看，稳定市场是明确目的；是否也追求投资回报，不能仅靠日线推断。</p>
+      <p><strong>政策底 vs 恐慌底：</strong>政策底是可观察的政策行动或官方增持时点；恐慌底是事后才能确认的价格低点。政策可能先于价格底，也可能滞后，或者同日。谁更接近最低点没有固定答案；价格底当然最接近“底”，但它只能事后知道。</p>
+      <p><strong>左侧 vs 右侧：</strong>政策或国家队出手时趋势若仍在均线下，是左侧救援/提前承接；三大指数重新站稳均线后才是右侧确认。左侧潜在价格低但误判风险高，右侧更易验证但会错过最初一段反弹。</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="r-star">
+    <h2 id="r-star">科创板问题</h2>
+    <div class="report-prose">
+      <p>网页跟踪华夏科创50ETF（588000）和科创50指数，这能显示科创板一篮子资产的份额与价格变化。买入科创50ETF会间接持有指数成份股的经济敞口，但不等同于中央汇金直接买入某只科创板股票。当前数据没有588000的可靠汇金定期持仓参考线，所以页面只画走势，不判断国家队增减持。</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="r-alert">
+    <h2 id="r-alert">哪些组合值得警惕？</h2>
+    <div class="alert-grid">
+      <article class="explain-card"><h3>高警惕</h3><p>多数ETF连续多日份额减少 + 三大指数中至少两个跌破20日和60日均线 + 恐慌压力升高。三者同现时，市场风险分获得25分组合加分并触发提醒。</p></article>
+      <article class="explain-card"><h3>不能误读</h3><p>指数暴跌同时ETF份额激增，可能是有人承接、套利或机构配置，也可能与稳定行动重合；它不是“当天必然见底”的证据。</p></article>
+      <article class="explain-card"><h3>数据警报</h3><p>交易所官方源失败、最新日期滞后、持仓参考线超过120天未更新时，结论置信度下降。此时应先修数据，不应加强交易判断。</p></article>
+      <article class="explain-card"><h3>修复确认</h3><p>多数ETF份额连续增加 + 至少两个指数重回两条均线 + 波动下降，才是更完整的右侧修复组合；仍不保证未来收益。</p></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="r-sources">
+    <h2 id="r-sources">一手来源</h2>
+    <ul class="source-list">
+      <li><a href="https://fund.szse.cn/marketdata/fundslist/index.html">深圳证券交易所基金规模查询</a>：159919每日总份额。</li>
+      <li><a href="https://investor.szse.cn/institute/rules/t20230316_599258.html">深交所投资者教育资料</a>：确认159919为嘉实沪深300ETF。</li>
+      <li><a href="https://www.huijin-inv.cn/huijin-inv/c100074/2023-10/1002226.shtml">中央汇金2023-10-23公告</a>：买入ETF并表示继续增持。</li>
+      <li><a href="https://www.huijin-inv.cn/huijin-inv/c100077/2024-02/1002262.shtml">中央汇金2024-02-06公告</a>：扩大ETF增持范围和规模。</li>
+      <li><a href="https://www.huijin-inv.cn/huijin-inv/SC20252/2025-04/1002841.shtml">中央汇金2025-04-07公告</a>：再次增持ETF、维护市场平稳运行。</li>
+      <li><a href="https://www.csrc.gov.cn/csrc/c106311/c7508374/content.shtml">证监会转载2024-09-24国新办发布会</a>：支持股票市场稳定发展的政策工具。</li>
+    </ul>
+  </section>
+</main>
+
+<footer><p>本报告是公开数据的可复核研究框架，只提供通用观察与风险提示。模型不掌握你的财务状况、目标、期限和承受亏损能力，不构成个性化投资建议。</p></footer>
+<script src="assets/report.js?v=20260721-score1"></script>
+</body>
+</html>

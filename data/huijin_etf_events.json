@@ -1,0 +1,35 @@
+{
+  "monitoring_start": "2023-10-23",
+  "historical_context": {
+    "since": "2008",
+    "statement_date": "2015-05-28",
+    "note": "中央汇金官网确认自2008年以来曾购入ETF，但没有披露逐日、逐只ETF的完整成交明细。",
+    "source_url": "https://www.huijin-inv.cn/huijin-inv/Corporate_History/2015.shtml"
+  },
+  "events": [
+    {
+      "date": "2015-07-05",
+      "type": "confirmed_buy",
+      "title": "汇金公告近期已买入ETF并将继续操作",
+      "source_url": "https://www.huijin-inv.cn/huijin-inv/Corporate_History/2015.shtml"
+    },
+    {
+      "date": "2023-10-23",
+      "type": "confirmed_buy",
+      "title": "汇金公告当日买入ETF并将继续增持",
+      "source_url": "https://www.huijin-inv.cn/huijin-inv/c100074/2023-10/1002226.shtml"
+    },
+    {
+      "date": "2024-02-06",
+      "type": "confirmed_buy",
+      "title": "汇金公告扩大ETF增持范围和规模",
+      "source_url": "https://www.huijin-inv.cn/huijin-inv/c100077/2024-02/1002262.shtml"
+    },
+    {
+      "date": "2025-04-07",
+      "type": "confirmed_buy",
+      "title": "汇金公告再次增持ETF",
+      "source_url": "https://www.huijin-inv.cn/huijin-inv/SC20252/2025-04/1002841.shtml"
+    }
+  ]
+}

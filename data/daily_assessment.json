@@ -1,0 +1,298 @@
+{
+  "schema_version": 2,
+  "market_scope": "CN",
+  "market_scope_label": "仅中国大陆A股",
+  "as_of": "2026-10-23",
+  "data_explanation": {
+    "official_szse_etf": "159919嘉实沪深300ETF每日总份额来自深交所基金规模报表",
+    "baseline": "2025-12-31定期报告持仓参考线；6只ETF有可比较基线",
+    "important": "ETF总份额是全市场总量，不是中央汇金的逐日持仓。"
+  },
+  "verdict": {
+    "state": "mixed",
+    "label": "信号尚未共同收敛",
+    "plain": "四个模型没有至少3个同向，最诚实的结论是继续观察。",
+    "counts": {
+      "support": 2,
+      "risk": 2,
+      "neutral": 0
+    },
+    "rule": "至少3/4个模型同向才称为共同收敛"
+  },
+  "models": [
+    {
+      "id": "share_flow",
+      "name": "模型1 · ETF份额流向",
+      "vote": "support",
+      "title": "多数ETF总份额增加",
+      "explanation": "8/8只ETF最近一条有效记录增加，合计约增加117.7亿份。它说明市场净申购偏强，但不能证明买方就是国家队。",
+      "metrics": {
+        "comparable_etfs": 8,
+        "rising_etfs": 8,
+        "falling_etfs": 0,
+        "net_change_yi": 117.71,
+        "latest_date": "2026-10-23",
+        "earliest_latest_date": "2026-10-23",
+        "latest_verified": 8,
+        "latest_total": 8,
+        "streak_intervals": 3,
+        "streak_comparable_etfs": 8,
+        "consecutive_inflow_etfs": 8,
+        "consecutive_outflow_etfs": 0
+      }
+    },
+    {
+      "id": "trend",
+      "name": "模型2 · 三大指数趋势",
+      "vote": "risk",
+      "title": "多数指数跌到中短期均线下方",
+      "explanation": "3/3个指数同时位于20日和60日均线下方，趋势仍弱，贸然把一次反弹当成见底的风险较高。",
+      "metrics": {
+        "000001": {
+          "date": "2026-10-23",
+          "close": 3690.47,
+          "ma20": 3803.88,
+          "ma60": 3871.57,
+          "above_ma20": false,
+          "above_ma60": false,
+          "return20": -0.0478,
+          "drawdown120": -0.1301,
+          "volatility20": 0.127
+        },
+        "399001": {
+          "date": "2026-10-23",
+          "close": 11673.83,
+          "ma20": 12539.07,
+          "ma60": 13423.46,
+          "above_ma20": false,
+          "above_ma60": false,
+          "return20": -0.1295,
+          "drawdown120": -0.287,
+          "volatility20": 0.2439
+        },
+        "000688": {
+          "date": "2026-10-23",
+          "close": 1345.52,
+          "ma20": 1472.27,
+          "ma60": 1594.39,
+          "above_ma20": false,
+          "above_ma60": false,
+          "return20": -0.1623,
+          "drawdown120": -0.3906,
+          "volatility20": 0.3284
+        }
+      }
+    },
+    {
+      "id": "stress",
+      "name": "模型3 · 恐慌压力",
+      "vote": "risk",
+      "title": "市场仍有明显恐慌压力",
+      "explanation": "3/3个指数出现较深的120日回撤或较高波动。这更像风险释放阶段，不等于已经到最低点。",
+      "metrics": {
+        "panic_indices": 3,
+        "calm_indices": 0,
+        "total": 3
+      }
+    },
+    {
+      "id": "history",
+      "name": "模型4 · 历史事件先验",
+      "vote": "support",
+      "title": "历史上短期上涨次数较多，但证据很薄",
+      "explanation": "A股7次样本中，干预后20个交易日有6次上涨。但一个反例就会让胜率变动14.3个百分点，不能当成预测保证。",
+      "metrics": {
+        "20": {
+          "n": 7,
+          "win_rate": 0.857,
+          "wilson95": [
+            0.487,
+            0.974
+          ]
+        },
+        "60": {
+          "n": 7,
+          "win_rate": 0.571,
+          "wilson95": [
+            0.25,
+            0.842
+          ]
+        },
+        "120": {
+          "n": 7,
+          "win_rate": 0.714,
+          "wilson95": [
+            0.359,
+            0.918
+          ]
+        },
+        "250": {
+          "n": 7,
+          "win_rate": 0.714,
+          "wilson95": [
+            0.359,
+            0.918
+          ]
+        }
+      }
+    }
+  ],
+  "scorecard": {
+    "formula_version": "1.0",
+    "definition": "连续=最近3个相邻更新间隔；每项25分，三项同时满足再加25分。",
+    "market_risk": {
+      "score": 50,
+      "level": "较高",
+      "alert": false,
+      "components": [
+        {
+          "label": "ETF连续3个更新间隔减少",
+          "points": 0,
+          "max": 25,
+          "detail": "0/8只可比ETF"
+        },
+        {
+          "label": "指数同时跌破20日和60日均线",
+          "points": 25,
+          "max": 25,
+          "detail": "3/3个指数"
+        },
+        {
+          "label": "恐慌压力",
+          "points": 25,
+          "max": 25,
+          "detail": "3/3个指数"
+        },
+        {
+          "label": "三项同时出现",
+          "points": 0,
+          "max": 25,
+          "detail": "未触发"
+        }
+      ]
+    },
+    "repair_readiness": {
+      "score": 25,
+      "level": "观察",
+      "alert": false,
+      "components": [
+        {
+          "label": "ETF连续3个更新间隔增加",
+          "points": 25,
+          "max": 25,
+          "detail": "8/8只可比ETF"
+        },
+        {
+          "label": "指数同时站上20日和60日均线",
+          "points": 0,
+          "max": 25,
+          "detail": "0/3个指数"
+        },
+        {
+          "label": "波动和回撤趋于平稳",
+          "points": 0,
+          "max": 25,
+          "detail": "0/3个指数"
+        },
+        {
+          "label": "三项同时出现",
+          "points": 0,
+          "max": 25,
+          "detail": "未触发"
+        }
+      ]
+    },
+    "data_confidence": {
+      "score": 70,
+      "level": "中等",
+      "alert": true,
+      "issues": [
+        "持仓参考线超过120天未更新"
+      ],
+      "components": [
+        {
+          "label": "最新ETF记录已核验",
+          "points": 40,
+          "max": 40,
+          "detail": "8/8只ETF"
+        },
+        {
+          "label": "ETF与指数日期及时",
+          "points": 30,
+          "max": 30,
+          "detail": "日期齐全"
+        },
+        {
+          "label": "持仓参考线在120天内",
+          "points": 0,
+          "max": 30,
+          "detail": "已296天"
+        }
+      ]
+    },
+    "general_signal": {
+      "state": "defensive",
+      "headline": "偏防守，等待风险回落",
+      "guidance": "当前不适合仅凭单日ETF份额增加去抄底；等指数和波动至少再确认一项。 数据提示：持仓参考线超过120天未更新。",
+      "boundary": "风险分高不等于必须卖，修复分高不等于必须买；个人资金期限和承受亏损能力不在本模型中。"
+    }
+  },
+  "two_sided": {
+    "buy_side": {
+      "label": "买入/承接侧满足 1/3 项",
+      "checks": [
+        {
+          "label": "多数ETF份额增加",
+          "met": true
+        },
+        {
+          "label": "多数指数站上20日与60日均线",
+          "met": false
+        },
+        {
+          "label": "多数指数脱离恐慌状态",
+          "met": false
+        }
+      ],
+      "meaning": "3项同时满足才属于较完整的右侧修复组合；即使满足，也不能确认买方身份或保证上涨。"
+    },
+    "sell_side": {
+      "label": "卖出/风险侧满足 2/3 项",
+      "checks": [
+        {
+          "label": "多数ETF份额减少",
+          "met": false
+        },
+        {
+          "label": "多数指数跌破20日与60日均线",
+          "met": true
+        },
+        {
+          "label": "多数指数仍有明显恐慌压力",
+          "met": true
+        }
+      ],
+      "meaning": "3项同时满足才升级为共同卖出风险警报；份额下降仍是全市场结果，不等于国家队已确认卖出。"
+    },
+    "history_boundary": "历史事件研究只统计买入/政策干预。当前没有足够的、经官方确认且可精确定位的A股国家队卖出事件，因此不虚构卖出胜率模型。"
+  },
+  "action_guide": {
+    "level": "等待级：证据不足",
+    "why": [
+      "多数ETF总份额增加",
+      "多数指数跌到中短期均线下方"
+    ],
+    "checklist": [
+      "不根据单一红色区域、单日申购或一条政策新闻做决定。",
+      "等待份额模型与趋势模型转为同向，再重新评估。",
+      "如果你看不懂一个信号，就先不行动；错过一点通常比在不理解时冒险更可控。"
+    ],
+    "boundary": "这是通用观察框架，不了解你的资金用途、期限和承受亏损能力，不能替代个性化投资建议。"
+  },
+  "star_market": {
+    "answer": "公开数据能确认我们监测了科创50ETF及科创50指数，但目前没有可靠证据据此断言中央汇金直接买入了某只科创板股票。",
+    "distinction": "买入科创50ETF会形成对一篮子科创板成份股的间接敞口，不等于直接出现在单只股票股东名单。",
+    "tracked_etf": "588000 华夏科创50ETF",
+    "huijin_baseline_available": false
+  }
+}

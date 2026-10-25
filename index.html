@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股国家队ETF观察</title>
+<link rel="stylesheet" href="assets/style.css?v=20261024-pulse1">
+<link rel="stylesheet" href="assets/pulse.css?v=20261024-pulse1">
+<script src="assets/echarts.min.js?v=5.5.0"></script>
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">HUIJIN ETF WATCH · 本地研究数据</p>
+    <h1>A股国家队ETF观察</h1>
+    <p class="subtitle">跟踪宽基ETF份额、市场风险与修复信号。</p>
+    <p class="statusline" id="statusline">数据加载中…</p>
+  </div>
+</header>
+
+<main>
+  <section id="pulse-research" aria-labelledby="pulse-heading">
+    <div class="pulse-intro"><p class="eyebrow">HISTORICAL EVIDENCE · 14只ETF · 7类宽基</p><h2 id="pulse-heading">每一次份额异动，后来怎样？</h2><p>把信号放回历史，逐次核对市场走势。份额变化来自全市场，不能单独确认国家队买卖。</p></div>
+    <p id="pulse-status" class="statusline" role="status" aria-live="polite">正在读取历史复盘…</p>
+    <button id="pulse-retry" class="pulse-button" type="button" hidden>重新读取</button><p id="pulse-warning" class="pulse-warning" role="status" hidden></p>
+    <div id="pulse-content" hidden>
+      <form id="pulse-filters" class="pulse-filters" novalidate aria-label="历史复盘筛选">
+        <label>信号口径<select name="signal"><option value="relative">相对异常</option><option value="large">百亿份脉冲</option><option value="official">官方公告参照</option></select></label>
+        <label>指数类别<select name="index"><option value="">全部指数</option></select></label>
+        <label>ETF<select name="code"><option value="">全部ETF（分开统计）</option></select></label>
+        <label>份额方向<select name="direction"><option value="">两个方向</option><option value="creation">净申购</option><option value="redemption">净赎回</option></select></label>
+        <label>观察期<select name="horizon"><option value="1">后续1个交易日</option><option value="5">后续5个交易日</option><option value="10">后续10个交易日</option><option value="20" selected>后续20日 · 主要检验</option><option value="60">后续60个交易日</option></select></label>
+        <label>起算口径<select name="basis"><option value="known">考虑披露延迟</option><option value="event">事件日收盘 · 事后观察</option></select></label>
+        <label>事件开始日期<input type="date" name="start" aria-describedby="pulse-filter-error"></label>
+        <label>事件结束日期<input type="date" name="end" aria-describedby="pulse-filter-error"></label>
+        <label>历史分区<select name="segment"><option value="">全部时期（参照按分区匹配）</option><option value="history">较早历史</option><option value="recent">末尾252个交易日</option></select></label>
+        <button id="pulse-reset" class="pulse-button" type="button">重置筛选</button>
+      </form>
+      <p id="pulse-filter-error" class="pulse-warning" role="status"></p>
+      <details class="pulse-method"><summary>规则与阅读方法</summary>
+        <p>百亿份：单日变化绝对值≥100亿份。相对异常：变化率绝对值≥1%，且≥此前120个交易日绝对变化率的95分位，至少60个有效观测；不包含当天，不按收益调参。</p>
+        <p>历史份额公开时间不详时，保守假设第1个后续交易日结束前可知，从第2个后续交易日收盘起算。收益是指数价格观察，不是可成交的策略回报，不含分红、费用或滑点。</p>
+        <p>主要统计按ETF及信号选取间隔至少20日的首次事件，再区分申购／赎回。申购后上涨、赎回后下跌算方向命中，持平不算。普通日期包含信号日，按相同指数、起点年份、历史分区与筛选范围比较；不控制所有市场状态，不代表因果关系。</p>
+        <p>末尾252交易日仅作历史稳定性检查，跨分区的60日窗口被排除；60日结果可能重叠。固定14只属于事后选定研究池。少于30次提示证据不足，更多样本也只作描述性比较；同指数各ETF不得合并为独立成功次数。</p>
+      </details>
+      <div class="pulse-section-bar"><h3>信号发生在什么时候</h3><span id="pulse-count" role="status" aria-live="polite"></span></div>
+      <div id="pulse-timeline" class="pulse-timeline" role="img" aria-label="按日期统计的事件数量；也可使用下方事件表查看"></div>
+      <h3>与普通交易日期相比</h3><p id="pulse-stat-note" class="lead"></p>
+      <div class="pulse-table-wrap" tabindex="0" role="region" aria-label="按ETF和方向分别统计的历史表现"><table class="pulse-table"><caption class="pulse-sr-only">独立分组统计，所有收益均为对应指数价格收益</caption><thead><tr><th scope="col">ETF／方向</th><th scope="col">样本数</th><th scope="col">上涨比例</th><th scope="col">方向命中／95%区间</th><th scope="col">平均／中位收益</th><th scope="col">收益5%～95%分位</th><th scope="col">普通日期均值／样本</th><th scope="col">方向调整均值差</th><th scope="col">证据状态</th></tr></thead><tbody id="pulse-summary"></tbody></table></div>
+      <div class="pulse-section-bar"><h3>逐次复盘</h3><div class="pulse-actions"><button id="pulse-csv" class="pulse-button" type="button">导出CSV</button><button id="pulse-json" class="pulse-button" type="button">导出JSON</button></div></div>
+      <p id="pulse-export-status" class="pulse-live" role="status" aria-live="polite"></p>
+      <div class="pulse-table-wrap" tabindex="0" role="region" aria-label="全部筛选事件明细"><table class="pulse-table"><caption class="pulse-sr-only">每次事件均可点击复盘，表中保留分区排除和未完成事件</caption><thead><tr><th scope="col">事件日期</th><th scope="col">ETF／事件</th><th scope="col">方向</th><th scope="col">份额净变</th><th scope="col">观察起点</th><th scope="col">所选期收益</th><th scope="col">历史分区</th></tr></thead><tbody id="pulse-events"></tbody></table></div>
+      <nav class="pulse-pagination" aria-label="事件分页"><button id="pulse-prev" class="pulse-button" type="button">上一页</button><span id="pulse-page" aria-live="polite"></span><button id="pulse-next" class="pulse-button" type="button">下一页</button></nav>
+      <section id="pulse-detail" class="pulse-detail" aria-labelledby="pulse-detail-title" hidden>
+        <h3 id="pulse-detail-title" tabindex="-1"></h3><div id="pulse-detail-meta"></div>
+        <div id="pulse-event-chart" class="pulse-event-chart" role="img" aria-label="对应指数与沪深300走势，详细收益见下表"></div><p id="pulse-curve-note" class="lead"></p>
+        <div class="pulse-table-wrap" tabindex="0" role="region" aria-label="事件各观察期收益与风险"><table class="pulse-table"><caption class="pulse-sr-only">同一事件的五种观察期，20日为主要检验期</caption><thead><tr><th scope="col">观察期</th><th scope="col">对应指数收益</th><th scope="col">沪深300收益</th><th scope="col">相对起点最大跌幅</th><th scope="col">峰谷最大回撤</th></tr></thead><tbody id="pulse-outcomes"></tbody></table></div>
+      </section>
+      <details class="pulse-method"><summary>数据覆盖与可核验信息</summary><p id="pulse-coverage"></p><p>原始响应按SHA-256存档于本地缓存。事件JSON含来源、份额精度、方法版本和输入摘要；CSV收益单位为小数，份额单位为份。</p><p>未确认持仓归属的ETF属于宽基观察候选。工具不把后来披露的国家队持仓当作过去已知信息。</p></details>
+    </div>
+  </section>
+  <nav class="pulse-legacy-nav" aria-label="原观测站栏目"><a href="#h-etf">每日份额</a><a href="#h-assessment">原模型评分</a><a href="#h-study">原政策事件研究</a></nav>
+  <section id="cards" class="cards" aria-label="总览指标"></section>
+
+  <section aria-labelledby="h-assessment">
+    <div class="section-heading">
+      <h2 id="h-assessment">今日评分</h2>
+      <span class="heading-links">
+        <a href="output/pdf/etf-monitor-assessment-guide.pdf" class="text-link" download>PDF指南（截至7月20日）↓</a>
+        <a href="report.html" class="text-link">计算方法 →</a>
+      </span>
+    </div>
+    <p class="lead">0–100分，分数越高代表该方向的条件越完整。点击“查看计算”可核对触发原因。</p>
+    <div id="assessment" class="assessment"><p class="empty">正在计算…</p></div>
+  </section>
+
+  <section aria-labelledby="h-etf">
+    <h2 id="h-etf">ETF份额怎么变？
+      <span class="h-note event-legend">
+        <span>黄<i class="legend-dot official-buy"></i>=公开ETF增持公告</span><b>·</b>
+        <span>红/绿圆点=后端核验的单只ETF净增/净减≥100亿份</span>
+      </span>
+    </h2>
+    <p class="lead">默认显示2025年12月31日至最新；点击折线或横轴日期可查看当天份额。时间轴偏离最新日期时，点图右上角“回到最新”；点“全部历史”可查看更早记录。红色区域表示市场总份额低于汇金历史持有参考线。</p>
+    <div id="etf-signal-summary" class="signal-summary"><p>正在核对单只ETF百亿份额异动…</p></div>
+    <div id="etf-charts" class="chart-grid one-col"></div>
+  </section>
+
+  <section aria-labelledby="h-index">
+    <h2 id="h-index">历史上政策和低点在什么位置？
+      <span class="h-note event-legend">
+        <span>蓝<i class="legend-dot buy"></i>=公开增持</span><b>·</b>
+        <span>紫<i class="legend-dot policy"></i>=政策出台</span><b>·</b>
+        <span>红<i class="legend-dot trough"></i>=事后价格低点</span><b>·</b>
+        <span>橙<i class="legend-dot sell"></i>=推算的份额减少窗口</span>
+      </span>
+    </h2>
+    <p class="lead">红点是事后回看得到的价格低点，不是当天就能提前知道的预测信号。</p>
+    <div id="index-charts" class="chart-grid one-col"></div>
+  </section>
+
+  <section aria-labelledby="h-study">
+    <h2 id="h-study">原政策事件研究（独立参照）</h2>
+    <div id="study" class="study"><p class="empty">尚未生成事件研究结果。回补指数日线后运行 <code>python scripts/event_study.py</code>。</p></div>
+  </section>
+
+  <section aria-labelledby="h-comments">
+    <h2 id="h-comments">每日数据解读</h2>
+    <div id="comments"><p class="empty">暂无解读。</p></div>
+  </section>
+</main>
+
+<footer>
+  <p>数据来源：沪深交易所公开披露、基金定期报告；官方源失败时才使用标记为“未核验”的兜底数据。ETF总份额变化来自全市场，不能单独证明中央汇金的逐日交易。
+  本站只提供通用观察和风险提示，不了解你的资金用途、期限与承受亏损能力，<strong>不构成个性化买卖指令或投资建议</strong>。</p>
+  <p id="baseline-warn" class="warn" hidden></p>
+</footer>
+<script src="assets/pulse.js?v=20261024-pulse1"></script>
+<script src="assets/app.js?v=20261024-pulse1"></script>
+</body>
+</html>

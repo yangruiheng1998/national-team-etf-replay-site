@@ -1,0 +1,137 @@
+[
+  {
+    "date": "2008-09-18",
+    "type": "buy",
+    "scope": ["000001", "399001"],
+    "title": "汇金公告增持三大行",
+    "note": "上证收盘1895.84点；次日印花税改单边征收",
+    "verify": false,
+    "source_url": "https://news.cctv.com/financial/20080918/106429.shtml"
+  },
+  {
+    "date": "2008-10-28",
+    "type": "trough",
+    "scope": ["000001", "399001"],
+    "title": "市场底1664.93点",
+    "note": "政策底后约40天，再跌约12%",
+    "verify": false,
+    "source_url": "https://finance.sina.com.cn/realstock/company/sh000001/nc.shtml"
+  },
+  {
+    "date": "2011-10-10",
+    "type": "buy",
+    "scope": ["000001", "399001"],
+    "title": "汇金增持四大行",
+    "note": "上证收盘2344.79点",
+    "verify": false,
+    "source_url": "https://www.chinanews.com.cn/fortune/2011/10-11/3380852.shtml"
+  },
+  {
+    "date": "2012-12-04",
+    "type": "trough",
+    "scope": ["000001", "399001"],
+    "title": "市场底1949.46点",
+    "note": "政策底后约14个月，再跌约17%",
+    "verify": false,
+    "source_url": "https://finance.sina.com.cn/realstock/company/sh000001/nc.shtml"
+  },
+  {
+    "date": "2015-07-08",
+    "type": "buy",
+    "scope": ["000001", "399001"],
+    "title": "证金/汇金救市入场（第一批）",
+    "note": "央行协助证金公司获得充足流动性；上证收盘3507.19点",
+    "verify": false,
+    "source_url": "https://caijing.chinadaily.com.cn/2015-07/08/content_21227574.htm"
+  },
+  {
+    "date": "2015-08-26",
+    "type": "trough",
+    "scope": ["000001", "399001"],
+    "title": "第一波恐慌低点（上证2850.71）",
+    "note": "点位按当日最低价记录",
+    "verify": false,
+    "source_url": "https://finance.sina.com.cn/realstock/company/sh000001/nc.shtml"
+  },
+  {
+    "date": "2016-01-27",
+    "type": "trough",
+    "scope": ["000001", "399001"],
+    "title": "最终市场底（上证2638.30）",
+    "note": "熔断机制冲击后；点位按当日最低价记录",
+    "verify": false,
+    "source_url": "https://finance.sina.com.cn/realstock/company/sh000001/nc.shtml"
+  },
+  {
+    "date": "2018-10-19",
+    "type": "policy",
+    "scope": ["000001", "399001"],
+    "title": "高层集体喊话（政策底2449.20）",
+    "note": "点位按当日最低价记录",
+    "verify": false,
+    "source_url": "https://app.www.gov.cn/govdata/gov/201810/19/430823/article.html"
+  },
+  {
+    "date": "2019-01-04",
+    "type": "trough",
+    "scope": ["000001", "399001"],
+    "title": "市场底2440.91点",
+    "note": "政策底后约两个半月；点位按当日最低价记录",
+    "verify": false,
+    "source_url": "https://finance.sina.com.cn/realstock/company/sh000001/nc.shtml"
+  },
+  {
+    "date": "2023-10-23",
+    "type": "buy",
+    "scope": ["000001", "399001", "000688"],
+    "title": "汇金公告增持ETF",
+    "note": "上证当日最低2923.51点；10月11日已增持四大行",
+    "verify": false,
+    "source_url": "https://www.huijin-inv.cn/huijin-inv/c100074/2023-10/1002226.shtml"
+  },
+  {
+    "date": "2024-02-05",
+    "type": "trough",
+    "scope": ["000001", "399001", "000688"],
+    "title": "恐慌底（上证2635.09）",
+    "note": "汇金于次日公告扩大ETF增持范围",
+    "verify": false,
+    "source_url": "https://www.huijin-inv.cn/huijin-inv/c100077/2024-02/1002262.shtml"
+  },
+  {
+    "date": "2024-09-18",
+    "type": "trough",
+    "scope": ["000001", "399001", "000688"],
+    "title": "恐慌低点（上证2689.70）",
+    "note": "国家队资金已提前左侧布局",
+    "verify": false,
+    "source_url": "https://jrj.sh.gov.cn/SCDT197/20240919/7d2b3369f99240dbb3434165f07e9261.html"
+  },
+  {
+    "date": "2024-09-24",
+    "type": "policy",
+    "scope": ["000001", "399001", "000688"],
+    "title": "9·24政策组合拳",
+    "note": "政策底；恐慌底略早于政策底；上证收盘2863.13点",
+    "verify": false,
+    "source_url": "https://www.whxinzhou.gov.cn/xwzx_29/tpxw/202409/t20240927_2460813.shtml"
+  },
+  {
+    "date": "2025-04-07",
+    "type": "buy",
+    "scope": ["000001", "399001", "000688"],
+    "title": "关税冲击，汇金盘中公告增持",
+    "note": "政策底与恐慌底同日；上证最低3040.69、收盘3096.58点",
+    "verify": false,
+    "source_url": "https://www.huijin-inv.cn/huijin-inv/SC20252/2025-04/1002841.shtml"
+  },
+  {
+    "date": "2026-01-15",
+    "type": "sell",
+    "scope": ["000001", "399001", "000688"],
+    "title": "宽基ETF减持窗口起点（推算）",
+    "note": "由ETF份额倒挂及份额下降反推，不是汇金官方披露的精确起始日",
+    "verify": false,
+    "source_url": "https://www.nbd.com.cn/articles/2026-01-23/4233449.html"
+  }
+]
