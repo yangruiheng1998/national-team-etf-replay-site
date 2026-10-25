@@ -1,5 +1,7 @@
 # 国家队信号历史复盘网页
 
+[打开在线交互看板](https://yangruiheng1998.github.io/national-team-etf-replay-site/)
+
 这是自动发布的静态网页快照，研究工具和更新过程保存在独立仓库。
 
 基于 [zoeyzhu97/etf-monitor](https://github.com/zoeyzhu97/etf-monitor) 扩展，保留原作者归属；上游未声明分发许可证，本仓库不为上游代码添加许可证。
